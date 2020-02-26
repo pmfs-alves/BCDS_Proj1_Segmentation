@@ -1,0 +1,30 @@
+Questões gerais:
+- Faz sentido analisarmos pessoas que não têm qualquer booking feito? Acho que não... têm valor de 0 em quase todas as variáveis.
+- Quando é que foram recolhidos os dados? Data
+- O que são os GDS Systems? É um distribution channel que junta os voos aos hotéis?
+- A informação que temos na altura do booking varia consoante o tipo de channel?
+
+Hash questions:
+- É normal algumas pessoas com bookings feitos não terem documento identificação associado? Ser null...
+- Pode acontecer que uma empresa faça bookings para os seus colaboradores e o DocIDHash seja igual para todos eles? Há tuplos com o mesmo Doc ID, mas com idades muito diferentes.
+- Há um DocIDHash com 3000 observações com idades diferentes e muitos nulls na age, e tem todo o tipo de distribution channel. O que pode querer dizer?
+No caso acima não faz sentido fazer merge porque claramente os bookings não dizem respeito todos à mesma pessoa... mas como controlamos isto? -> quando podemos ou não fazer merge.
+
+Variáveis questões:
+- O que fazemos com pessoas menores de idade? Que razões existem para eles estarem na nossa base de dados?
+- As variáveis binárias são uma média das estadias ou têm a ver com a última estadia? O que fazemos quando fazemos merge de linhas?
+- Avg lead time of -1? Means something or is an error? O empregado alterou os dados após a reserva, para corrigir algo?
+
+1as conclusões das estatísticas descritivas:
+- Age tem valor mínimo de -10 e máximo de 123 - coherence check
+- Avg lead time of -1. Há alguma diferença entre o quartil dos 75% e o valor máximo e a média - possíveis outliers
+- Lodging revenue - claros outliers
+- Other revenue - claros outliers
+- bookings cancelled - check for outliers
+- boockings checked in - check for outliers
+- persons nights - outliers
+- room nights - outliers
+
+Possíveis sugestões de implementação:
+- Criar ficha cliente -> para beneficiar os clientes recorrentes.
+- Guardar o nome da empresa quando é corporate.
