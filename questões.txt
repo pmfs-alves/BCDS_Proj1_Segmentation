@@ -2,7 +2,7 @@ Questões gerais:
 - Faz sentido analisarmos pessoas que não têm qualquer booking feito? Acho que não... têm valor de 0 em quase todas as variáveis. 
 when company migrate the customers information, that might be the reason. Lets delete those customers.
 
-- Quando é que foram recolhidos os dados? Data (middle 2019)
+- Quando é que foram recolhidos os dados? Data - september 2019
 o professor vai ver se consegue dar-nos
 
 - O que são os GDS Systems? É um distribution channel que junta os voos aos hotéis?
@@ -48,7 +48,8 @@ Is an error
 - persons nights - outliers
 - room nights - outliers
 
-To do's:
+Outras Conclusões:
+
 É normal que um cliente que já é cliente há mais tempo tenha gasto mais. Provavelmente devíamos normalizar o total dinheiro gasto pelo nº de dias há que
 ele é cliente ou criar uma média mensal do dinheiro gasto.
 
@@ -62,6 +63,7 @@ Provavelmente person nights and room nights will be highly correlated
 We should only use the most usual binary variables (exclude the sparsest one) or transform them in order to have less binary variables (join some).
 
 Se não há nenhum check in feito a nacionalidade pode não estar bem! Pôr a null a nacionalidade nestes casos.
+A mesma coisa para a idade, só é confirmada no check in em que há documento, e mesmo aí pode falhar...
 
 Se a pessoa é estrangeira, tem obrigatoriamente de dar um id card, se a pessoa é portuguesa não é obrigatório dar id
 
@@ -72,6 +74,8 @@ yes, in some hotels children is considered 0.5 persons
 it might also be overbooking, but we'll ignore this option
 
 Se tivermos doc id's iguais mas names diferentes, vamos considerar pessoas diferentes
+
+Podemos ter revenue e não ter bookings, podemos ter alugado uma suite para um evento ou algo do género.
 
 
 Possíveis sugestões de implementação:
