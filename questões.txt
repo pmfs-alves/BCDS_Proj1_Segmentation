@@ -1,19 +1,42 @@
 Questões gerais:
-- Faz sentido analisarmos pessoas que não têm qualquer booking feito? Acho que não... têm valor de 0 em quase todas as variáveis.
-- Quando é que foram recolhidos os dados? Data
+- Faz sentido analisarmos pessoas que não têm qualquer booking feito? Acho que não... têm valor de 0 em quase todas as variáveis. 
+when company migrate the customers information, that might be the reason. Lets delete those customers.
+
+- Quando é que foram recolhidos os dados? Data (middle 2019)
+o professor vai ver se consegue dar-nos
+
 - O que são os GDS Systems? É um distribution channel que junta os voos aos hotéis?
-- A informação que temos na altura do booking varia consoante o tipo de channel?
+corporate companies use this systems. Hotels must have a contract with this systems.
+Direct as distribution channel - it means that the company itself has a contract with the hotel
+
+- A informação que temos na altura do booking varia consoante o tipo de channel?XXXXXXXXXXX
 
 Hash questions:
 - É normal algumas pessoas com bookings feitos não terem documento identificação associado? Ser null...
+- Como temos missing values no DocIDHash, podemos concluir que todos os Hash's são documentos e não null values?
 - Pode acontecer que uma empresa faça bookings para os seus colaboradores e o DocIDHash seja igual para todos eles? Há tuplos com o mesmo Doc ID, mas com idades muito diferentes.
 - Há um DocIDHash com 3000 observações com idades diferentes e muitos nulls na age, e tem todo o tipo de distribution channel. O que pode querer dizer?
 No caso acima não faz sentido fazer merge porque claramente os bookings não dizem respeito todos à mesma pessoa... mas como controlamos isto? -> quando podemos ou não fazer merge.
 
+
+Quando apenas o DocIDHash é igual, o que fazemos? 
+Ignoramos, contamos como clientes independentes...
+
+
 Variáveis questões:
 - O que fazemos com pessoas menores de idade? Que razões existem para eles estarem na nossa base de dados?
+o sistema não faz check nas idades, muitas vezes os hotéis guardam informações de crianças quando são clientes recorrentes. É normal
+
 - As variáveis binárias são uma média das estadias ou têm a ver com a última estadia? O que fazemos quando fazemos merge de linhas?
+Costumam ser reflexo do last booking.
+
+
 - Avg lead time of -1? Means something or is an error? O empregado alterou os dados após a reserva, para corrigir algo?
+Is an error
+
+
+
+
 
 1as conclusões das estatísticas descritivas:
 - Age tem valor mínimo de -10 e máximo de 123 - coherence check
@@ -25,6 +48,38 @@ Variáveis questões:
 - persons nights - outliers
 - room nights - outliers
 
+To do's:
+É normal que um cliente que já é cliente há mais tempo tenha gasto mais. Provavelmente devíamos normalizar o total dinheiro gasto pelo nº de dias há que
+ele é cliente ou criar uma média mensal do dinheiro gasto.
+
+A customer that is old with us probably has more cancelled and no showed bookings, should we normalize it also?
+
+Só podemos assumir que temos o mesmo cliente quando o NameHash e o DocIDHash são iguais!! 
+To check if it is the same person we can also check the nationality!
+
+Provavelmente person nights and room nights will be highly correlated
+
+We should only use the most usual binary variables (exclude the sparsest one) or transform them in order to have less binary variables (join some).
+
+Se não há nenhum check in feito a nacionalidade pode não estar bem! Pôr a null a nacionalidade nestes casos.
+
+Se a pessoa é estrangeira, tem obrigatoriamente de dar um id card, se a pessoa é portuguesa não é obrigatório dar id
+
+we can have lodging revenue of 0 and bookings checked in - might be an offer, or a member/staff of the hotel
+
+is it possible that room nights is bigger than person nights? 
+yes, in some hotels children is considered 0.5 persons
+it might also be overbooking, but we'll ignore this option
+
+Se tivermos doc id's iguais mas names diferentes, vamos considerar pessoas diferentes
+
+
 Possíveis sugestões de implementação:
 - Criar ficha cliente -> para beneficiar os clientes recorrentes.
 - Guardar o nome da empresa quando é corporate.
+
+age: 0-24, 25-44, 45-64, 65 ou + -> Turismo de Portugal, Estatísticas do Turismo 2018 - INE
+
+Apresentação:
+apresentação de 10 minutos para o board de directors da empresa. 
+Justify why the project is important, how we got here... don't give details of the technical part. What will be the impact of this, what could be done?
